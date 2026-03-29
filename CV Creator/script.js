@@ -41,9 +41,9 @@ document.getElementById('cv-form').addEventListener('submit', function(e) {
     document.getElementById('display-class').innerText = document.getElementById('classSemester').value;
     document.getElementById('display-inst').innerText = document.getElementById('institution').value;
 
-    // 5. Handle Skills List (Convert comma-separated to <li>)
+    // 5. Handle Skills List
     const skillsList = document.getElementById('display-skills');
-    skillsList.innerHTML = ''; // Clear previous entries
+    skillsList.innerHTML = ''; 
     skills.split(',').forEach(item => {
         if (item.trim() !== "") {
             const li = document.createElement('li');
@@ -52,25 +52,34 @@ document.getElementById('cv-form').addEventListener('submit', function(e) {
         }
     });
 
-    // 6. Reveal Output Section and Scroll
+    // 6. Reveal Output Section
     document.getElementById('cv-output').classList.remove('hidden');
+    
     window.scrollTo({
         top: document.getElementById('cv-output').offsetTop,
         behavior: 'smooth'
     });
 });
 
-// 7. PDF Download Functionality
+// 7. UPDATED PDF Function (Fixed Blank Page Issue)
 document.getElementById('download-pdf').addEventListener('click', function () {
     const element = document.getElementById('print-area');
-    const opt = {
-        margin:       0.2,
-        filename:     'Professional_CV.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    
+    // We add a tiny timeout to make sure the browser has rendered the text
+    setTimeout(() => {
+        const opt = {
+            margin:       0.2,
+            filename:     'Professional_CV.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, // Helps with loading images
+                logging: false 
+            },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
 
-    // Run the html2pdf library
-    html2pdf().set(opt).from(element).save();
+        // Generate the PDF
+        html2pdf().set(opt).from(element).save();
+    }, 500); // 500ms delay ensures everything is visible
 });
