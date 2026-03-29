@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Creator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="no-print">CV Creator Web Application</h1>
+        
+        <section class="form-section no-print" id="input-form">
+            <form id="cv-form">
+                <div class="grid-container">
+                    <div class="file-upload-group">
+                        <label for="profilePic">Step 1: Upload Profile Picture (Optional)</label>
+                        <input type="file" id="profilePic" accept="image/*">
+                    </div>
+
+                    <input type="text" id="fullName" placeholder="Full Name" required>
+                    <input type="text" id="fatherName" placeholder="Father's Name (Optional)">
+                    <input type="text" id="subject" placeholder="Subject" required>
+                    <input type="text" id="specialization" placeholder="Specialization" required>
+                    <input type="text" id="qualification" placeholder="Qualification" required>
+                    <input type="text" id="classSemester" placeholder="Class / Semester" required>
+                    <input type="text" id="institution" placeholder="College / School Name" required>
+                    <input type="tel" id="contact" placeholder="Contact Number" required>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                    <input type="text" id="address" placeholder="Address" required>
+                </div>
+                
+                <textarea id="skills" placeholder="Skills (Separate with commas, e.g., Java, Python, Graphic Design)" required></textarea>
+                <textarea id="objective" placeholder="Short Profile / Objective Statement" required></textarea>
+                
+                <button type="submit" id="generate-btn">Generate My CV</button>
+            </form>
+        </section>
+
+        <section id="cv-output" class="hidden">
+            <div class="cv-card" id="print-area">
+                <header>
+                    <div class="header-content">
+                        <img id="display-pic" src="" alt="Profile" class="hidden">
+                        <div class="header-text">
+                            <h2 id="display-name"></h2>
+                            <p id="display-objective"></p>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="cv-body">
+                    <div class="cv-left">
+                        <h3>Contact Info</h3>
+                        <p><strong>Email:</strong> <span id="display-email"></span></p>
+                        <p><strong>Phone:</strong> <span id="display-contact"></span></p>
+                        <p><strong>Address:</strong> <span id="display-address"></span></p>
+                        
+                        <h3>Skills</h3>
+                        <ul id="display-skills"></ul>
+                    </div>
+                    
+                    <div class="cv-right">
+                        <h3>Academic Profile</h3>
+                        <div class="detail-row"><strong>Father's Name:</strong> <span id="display-father"></span></div>
+                        <div class="detail-row"><strong>Subject:</strong> <span id="display-subject"></span></div>
+                        <div class="detail-row"><strong>Specialization:</strong> <span id="display-spec"></span></div>
+                        <div class="detail-row"><strong>Qualification:</strong> <span id="display-qual"></span></div>
+                        <div class="detail-row"><strong>Class/Semester:</strong> <span id="display-class"></span></div>
+                        <div class="detail-row"><strong>Institution:</strong> <span id="display-inst"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons no-print">
+                <button id="download-pdf" class="pdf-btn">Download PDF</button>
+                <button onclick="window.print()" class="print-btn">Print CV</button>
+                <button onclick="location.reload()" class="reset-btn">Create New</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
