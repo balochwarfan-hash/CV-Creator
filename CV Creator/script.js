@@ -1,18 +1,12 @@
 document.getElementById('cv-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // 1. Capture Form Inputs
+    // 1. Capture Form Data
     const fullName = document.getElementById('fullName').value;
     const email = document.getElementById('email').value;
     const skills = document.getElementById('skills').value;
     
-    // 2. Simple Form Validation
-    if (!email.includes('@')) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-
-    // 3. Handle Profile Picture Upload (FileReader API)
+    // 2. Handle Profile Picture
     const fileInput = document.getElementById('profilePic');
     const displayPic = document.getElementById('display-pic');
 
@@ -27,13 +21,12 @@ document.getElementById('cv-form').addEventListener('submit', function(e) {
         displayPic.classList.add('hidden');
     }
 
-    // 4. Map Data to CV Preview
+    // 3. Populate Text Fields
     document.getElementById('display-name').innerText = fullName;
     document.getElementById('display-objective').innerText = document.getElementById('objective').value;
     document.getElementById('display-email').innerText = email;
     document.getElementById('display-contact').innerText = document.getElementById('contact').value;
     document.getElementById('display-address').innerText = document.getElementById('address').value;
-    
     document.getElementById('display-father').innerText = document.getElementById('fatherName').value || "N/A";
     document.getElementById('display-subject').innerText = document.getElementById('subject').value;
     document.getElementById('display-spec').innerText = document.getElementById('specialization').value;
@@ -41,7 +34,7 @@ document.getElementById('cv-form').addEventListener('submit', function(e) {
     document.getElementById('display-class').innerText = document.getElementById('classSemester').value;
     document.getElementById('display-inst').innerText = document.getElementById('institution').value;
 
-    // 5. Handle Skills List
+    // 4. Populate Skills List
     const skillsList = document.getElementById('display-skills');
     skillsList.innerHTML = ''; 
     skills.split(',').forEach(item => {
@@ -52,34 +45,29 @@ document.getElementById('cv-form').addEventListener('submit', function(e) {
         }
     });
 
-    // 6. Reveal Output Section
+    // 5. Show CV Output
     document.getElementById('cv-output').classList.remove('hidden');
-    
-    window.scrollTo({
-        top: document.getElementById('cv-output').offsetTop,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: document.getElementById('cv-output').offsetTop, behavior: 'smooth' });
 });
 
-// 7. UPDATED PDF Function (Fixed Blank Page Issue)
+// 6. Fixed PDF Download (No Blank Page)
 document.getElementById('download-pdf').addEventListener('click', function () {
     const element = document.getElementById('print-area');
     
-    // We add a tiny timeout to make sure the browser has rendered the text
+    // Tiny delay to ensure images/text are fully painted by the browser
     setTimeout(() => {
         const opt = {
-            margin:       0.2,
-            filename:     'Professional_CV.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
+            margin:       [0.5, 0.5],
+            filename:     'My_Professional_CV.pdf',
+            image:        { type: 'jpeg', quality: 1 },
             html2canvas:  { 
                 scale: 2, 
-                useCORS: true, // Helps with loading images
-                logging: false 
+                useCORS: true,
+                letterRendering: true
             },
             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
-        // Generate the PDF
         html2pdf().set(opt).from(element).save();
-    }, 500); // 500ms delay ensures everything is visible
+    }, 500); 
 });
