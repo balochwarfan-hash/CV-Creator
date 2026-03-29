@@ -19,7 +19,6 @@
                         <label for="profilePic">Step 1: Upload Profile Picture (Optional)</label>
                         <input type="file" id="profilePic" accept="image/*">
                     </div>
-
                     <input type="text" id="fullName" placeholder="Full Name" required>
                     <input type="text" id="fatherName" placeholder="Father's Name (Optional)">
                     <input type="text" id="subject" placeholder="Subject" required>
@@ -31,10 +30,8 @@
                     <input type="email" id="email" placeholder="Email Address" required>
                     <input type="text" id="address" placeholder="Address" required>
                 </div>
-                
-                <textarea id="skills" placeholder="Skills (Separate with commas, e.g., Java, Python, Graphic Design)" required></textarea>
+                <textarea id="skills" placeholder="Skills (Separate with commas, e.g., Java, Python, UI Design)" required></textarea>
                 <textarea id="objective" placeholder="Short Profile / Objective Statement" required></textarea>
-                
                 <button type="submit" id="generate-btn">Generate My CV</button>
             </form>
         </section>
@@ -57,11 +54,9 @@
                         <p><strong>Email:</strong> <span id="display-email"></span></p>
                         <p><strong>Phone:</strong> <span id="display-contact"></span></p>
                         <p><strong>Address:</strong> <span id="display-address"></span></p>
-                        
                         <h3>Skills</h3>
                         <ul id="display-skills"></ul>
                     </div>
-                    
                     <div class="cv-right">
                         <h3>Academic Profile</h3>
                         <div class="detail-row"><strong>Father's Name:</strong> <span id="display-father"></span></div>
